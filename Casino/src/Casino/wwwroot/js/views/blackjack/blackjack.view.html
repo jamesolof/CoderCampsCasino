@@ -1,0 +1,33 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            <br />
+            <button class="btn btn-success" ng-click="vm.runGame()">play the game</button>
+            <br />
+            <br />
+            <div ng-if="vm.inGame">
+                <button class="btn btn-warning" ng-click="vm.clickHit()" id="clickHit">hit</button>
+                <button class="btn btn-warning" ng-click="vm.clickStay()" id="clickStay">stay</button>
+            </div>
+
+            <br />
+            <br />
+            <br />
+            <div ng-if="!vm.inGame && vm.isUserLoggedIn">
+                <button class="btn btn-primary" ng-click="vm.placeBet(5)" id="bet5">Chepobet 5</button>
+                <button class="btn btn-primary" ng-click="vm.placeBet(50)" id="bet50">Bet 50</button>
+                <button class="btn btn-primary" ng-click="vm.placeBet(100)" id="bet100">Bet 100</button>
+                <button class="btn btn-primary" ng-click="vm.placeBet(500)" id="bet500">Bet 500</button>
+                <button class="btn btn-danger" ng-click="vm.clearBets()">Clear bets</button>
+            </div>
+            <div ng-if="!vm.isUserLoggedIn">
+                <p>Please login to make a bet.</p>
+            </div>
+
+
+        </div>
+        <div class="col-sm-10">
+            <canvas id="myCanvas" width="1100" height="637"></canvas>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,249 @@
+﻿namespace Casino.Views.Slots {
+
+    export class wheel {
+        public bmp: createjs.Bitmap[] = [];
+        public nums: number[] = [];
+
+
+        constructor(
+
+            rnum: number
+        ) {
+
+            for (let i = 0; i <= 4; i++) {
+                if (rnum <= 4) {
+                    rnum++;
+                    this.nums[i] = rnum;
+                    this.bmp[i] = new createjs.Bitmap(`../../../img/slot${rnum}.png`);
+                    this.bmp[i].scaleX = 1;
+                    this.bmp[i].scaleY = 1;
+
+
+                }
+                else {
+                    rnum = 1;
+                    this.nums[i] = rnum;
+                    this.bmp[i] = new createjs.Bitmap(`../../../img/slot${rnum}.png`);
+                    this.bmp[i].scaleX = 1;
+                    this.bmp[i].scaleY = 1;
+
+                }
+            }
+
+            console.log(this.nums);
+        }
+    }
+
+    export class SlotsController {
+
+        public get isUserLoggedIn() {
+            return this.UserService.isLoggedIn;
+        }
+
+        public get user(): Models.UserModel {
+            return this.UserService.user;
+        }
+        public depos: number = 0;
+        public randNum(): number {
+            //let x = Math.floor(Math.random() * 5) + 1;
+            //return x;
+            return Math.floor(Math.random() * 5) + 1;
+        }
+        public stage: createjs.Stage = new createjs.Stage("slotCanv");
+        public machine: wheel[] = [];
+        public playable: boolean = false;
+        public gameStatus: createjs.Stage = new createjs.Stage("gameStatus");
+        public text = new createjs.Text;
+        public textMoney = new createjs.Text;
+
+
+
+
+        static $inject = [
+            'PlayerService',
+            'UserService'
+        ];
+
+        constructor(
+            private PlayerService: Services.PlayerService,
+            private UserService: Services.UserService
+        ) {
+            let that = this;
+            createjs.Ticker.addEventListener("tick", handleTick);
+            function handleTick(event) {
+                that.stage.update();
+                that.gameStatus.update();
+            }
+            var graphics = new createjs.Graphics().beginFill("#ff0000").drawRect(0, 0, 100, 100);
+            var shape = new createjs.Shape(graphics);
+
+            var shape = new createjs.Shape();
+            shape.graphics.beginFill("#ff0000").drawRect(0, 0, 150, 100);
+            that.gameStatus.addChild(shape);
+
+            let playText = new createjs.Text(`Play game`, "20px Arial", "#ff7700");
+            playText.x = 10;
+            playText.y = 30;
+            playText.textBaseline = "alphabetic";
+            that.gameStatus.addChild(playText);
+            this.gameStatus.update();
+
+
+
+            shape.addEventListener('click', function (e: createjs.MouseEvent) {
+
+                that.playSlots();
+                that.gameStatus.addChild(shape);
+                that.gameStatus.addChild(playText);
+
+            });
+
+            
+
+
+        }//end ctor
+
+        public playSlots() {
+            this.stage.removeAllChildren();
+            this.gameStatus.removeAllChildren();
+
+            // this.stage.update();
+            let randy: number[] = []
+            randy[0] = this.randNum();
+
+            randy[1] = this.randNum();
+
+            randy[2] = this.randNum();
+
+            for (let i = 0; i <= 2; i++) {
+                this.machine[i] = new wheel(randy[i]);
+            }
+            // j is the wheels
+            for (let j = 0; j <= 2; j++) {
+                console.log(`${this.machine[0].nums[j + 1]}   ${this.machine[1].nums[j + 1]}   ${this.machine[2].nums[j + 1]}`);
+                // TODO draw images to canvas!
+                //first machine
+                this.stage.addChild(this.machine[0].bmp[j + 1]);
+                this.machine[0].bmp[j + 1].x = (215 + 300 * 0) - 75;
+                this.machine[0].bmp[j + 1].y = (100 + 166 * j) - 50;
+                console.log(this.machine[0].bmp[j + 1])
+                this.stage.addChild(this.machine[1].bmp[j + 1]);
+                this.machine[1].bmp[j + 1].x = (215 + 300 * 1) - 75;
+                this.machine[1].bmp[j + 1].y = (100 + 166 * j) - 50;
+                console.log(this.machine[1].bmp[j + 1])
+                this.stage.addChild(this.machine[2].bmp[j + 1]);
+                this.machine[2].bmp[j + 1].x = (215 + 300 * 2) - 75;
+                this.machine[2].bmp[j + 1].y = (100 + 166 * j) - 50;
+                console.log(this.machine[2].bmp[j + 1])
+
+                this.stage.update();
+
+
+            }
+            this.winLogic();
+        }
+
+
+        public winLogic() {
+            let win = false;
+            // horizontal win
+            for (let i = 0; i <= 2; i++) {
+                if (this.machine[0].nums[i + 1] == this.machine[1].nums[i + 1]
+                    && this.machine[0].nums[i + 1] == this.machine[2].nums[i + 1]) {
+                    win = true;
+                    this.depos += 25;
+                }
+            }
+            //diamond win
+            if (this.machine[0].nums[1] == this.machine[1].nums[2]
+                && this.machine[0].nums[1] == this.machine[2].nums[1]) {
+                win = true
+
+            }
+            if (this.machine[0].nums[3] == this.machine[1].nums[2]
+                && this.machine[0].nums[3] == this.machine[2].nums[3]) {
+                win = true
+            }
+            // diagonal win
+            if (this.machine[0].nums[1] == this.machine[1].nums[2]
+                && this.machine[0].nums[1] == this.machine[2].nums[3]) {
+                win = true
+                this.depos += 10;
+            }
+            if (this.machine[0].nums[3] == this.machine[1].nums[2]
+                && this.machine[0].nums[3] == this.machine[2].nums[1]) {
+                win = true
+                this.depos += 10;
+            }
+            //jackpot
+            if (this.machine[0].nums[1] == this.machine[1].nums[1]
+                && this.machine[0].nums[1] == this.machine[2].nums[1]
+                && this.machine[0].nums[2] == this.machine[1].nums[2]
+                && this.machine[0].nums[2] == this.machine[2].nums[2]
+                && this.machine[0].nums[3] == this.machine[1].nums[3]
+                && this.machine[0].nums[3] == this.machine[2].nums[3]) {
+
+                this.depos += 1000000;
+            }
+
+            if (!win) {
+                //  console.log(`Lose ${this.depos}`); 
+                this.depos -= 5;
+                this.text = new createjs.Text("Loss", "20px Arial", "#ff7700")
+                this.text.x = 400;
+                this.text.y = 30;
+                this.text.scaleX = 1;
+                this.text.scaleY = 1;
+                this.text.textBaseline = "alphabetic";
+
+                this.gameStatus.addChild(this.text);
+
+
+            } else {
+                console.log(`Winner ${this.depos}`);
+                this.depos += 5;
+                this.text = new createjs.Text("Winner", "20px Arial", "#ff7700")
+                this.text.x = 400;
+                this.text.y = 30;
+                this.text.scaleX = 1;
+                this.text.scaleY = 1;
+                this.text.textBaseline = "alphabetic";
+                this.gameStatus.addChild(this.text);
+                this.gameStatus.update();
+            }
+
+            this.textMoney = new createjs.Text(`Bank: $ ${this.depos}`, "20px Arial", "#ff7700");
+            this.textMoney.x = 700;
+            this.textMoney.y = 30;
+            this.textMoney.textBaseline = "alphabetic";
+            this.gameStatus.addChild(this.textMoney);
+            this.gameStatus.update();
+
+        }
+
+        public insertMoney(b: number) {
+            this.depos += b;
+            this.updateUser(this.user, -b);
+            console.log(this.depos);
+
+        }
+
+        public hasMoney() {
+            if (this.depos > 0) {
+                this.playable = true;
+            }
+        }
+
+        public cashOut() {
+            this.updateUser(this.user, this.depos);
+            this.clearDeposit();
+        }
+        public updateUser(user: Models.UserModel, tokens: number) {
+            this.PlayerService.updateTokens(user, tokens);
+        }
+        public clearDeposit() {
+            this.depos = 0;
+        }
+
+    }//end class
+}//end nspace

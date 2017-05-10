@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "@types/angular": "1.6.5",
+    "@types/angular-resource": "1.5.8",
+    "@types/angular-ui-bootstrap": "0.13.39",
+    "@types/angular-ui-router": "1.1.36",
+    "@types/easeljs": "^0.8.36",
+    "@types/es6-collections": "^0.5.29",
+    "@types/es6-promise": "0.0.32",
+    "@types/underscore": "1.7.36"
+  }
+}

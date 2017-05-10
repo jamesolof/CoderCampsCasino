@@ -1,0 +1,21 @@
+﻿<div class="container-fluid">
+
+    <div class="col-sm-10">
+        <canvas id="slotCanv" width="1000" height="500"></canvas>
+    </div>
+   
+
+</div>
+
+
+
+<div container-fluid>
+    <div>
+        <canvas id="gameStatus" width="1000" height="70"></canvas>
+    </div>
+
+    <div ng-if="vm.isUserLoggedIn">
+        <button ng-click="vm.insertMoney(5)" class="btn btn-primary">Deposit money</button>
+        <button ng-click="vm.cashOut()" class="btn btn-primary">Cash Out</button>
+    </div>
+</div>

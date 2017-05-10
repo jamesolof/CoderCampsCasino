@@ -1,0 +1,24 @@
+﻿<div id="friendslist">
+    <h3>Your Friends</h3>
+    <hr />
+
+    <ul ng-repeat="friend in vm.userFriends" class="ulist">
+        <li>
+            <span>{{friend.nickname}}</span>
+            <span id="moneyMoney" class="flist">{{friend.tokens}} <span  class="glyphicon glyphicon-copyright-mark"></span></span>
+            <span class="flist"><button class="btn btn-danger" ng-click="vm.removeFriend(friend)"><span class=" glyphicon glyphicon-remove"></span></button></span>
+        </li>
+    </ul>
+    <div>
+
+        <br />
+        <br />
+        <form class="form-inline">
+            <div class="form-group">
+                <input ng-model="vm.friendSearch" placeholder="Friend Name" class="form-control">
+                <button ng-click="vm.addfriend()" class="btn btn-success">add friend</button>
+            </div>
+        </form>
+    </div>
+</div>
+

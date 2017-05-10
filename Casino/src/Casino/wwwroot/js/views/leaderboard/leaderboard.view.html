@@ -1,0 +1,21 @@
+﻿<h3>Leaderboard</h3>
+
+<table id="lBoard" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name:   </th>
+            <th> Games Won: </th>
+            <th> Games Played: </th>
+            <th>Tokens: </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in vm.highScore">
+            <td> {{user.nickname}}</td>
+            <td>{{user.gamesWon}}</td>
+            <td> {{user.gamesPlayed}} </td>
+            <td>{{user.tokens}} </td>
+
+        </tr>
+    </tbody>
+</table>

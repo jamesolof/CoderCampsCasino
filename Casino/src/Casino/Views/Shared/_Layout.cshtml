@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-strict-di>
+<head>
+    <base href="/" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Casino</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/css/yetistyle.css" rel="stylesheet" />
+    <link href="~/css/ngCloak.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+</head>
+<body ng-cloak ng-controller="AppController as vm" id="body">
+    <div class="navbar navbar-inverse navbar-fixed-top " id="navColorpicker">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a id="tnavtopl" ui-sref="Home" class="navbar-brand">Casino</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul id="tnavtopl" class="nav navbar-nav">
+                    <li><a ui-sref="Home">Home</a></li>
+
+                    <li><a ui-sref="About">About</a></li>
+                    <li><a ui-sref="Contact">Contact</a></li>
+                    <li><a ui-sref="LeaderBoard">LeaderBoard</a></li>
+                    <li><a ui-sref="TopUp">Topup</a></li>
+                    
+                    <li ng-if="vm.isUserLoggedIn"><a id="moneyMoney"><span class="glyphicon glyphicon-copyright-mark"></span> {{vm.user.tokens}}</a></li>
+
+                </ul>
+                <ul id="tnavtopr" class="nav navbar-nav navbar-right" ng-if="!vm.isUserLoggedIn">
+                    <li><a ui-sref="Register">Register</a></li>
+                    <li><a ui-sref="Login">Log in</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-if="vm.isUserLoggedIn">
+                    <li><a ui-sref="Settings">{{vm.user.nickname}} <span class="glyphicon glyphicon-cog"></span></a></li>
+                    <li><a href="" ng-click="vm.logOut()">Sign Out</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" >
+                            Friends
+                        </a>
+                        <div class="dropdown-menu" id="friendsListy"> <friends-list></friends-list> </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="container body-content">
+        <div>@RenderBody()</div>
+        <br />
+        <hr />
+    </div>
+    <footer>
+        <p>&copy; 2017 - Casino</p>
+    </footer>
+    @RenderSection("scripts", required: false)
+
+    <!-- Third Party Dependencies -->
+    <script src="~/lib/es6-promise/es6-promise.js"></script>
+    <script src="~/lib/EaselJS/lib/easeljs-0.8.2.min.js"></script>
+    <script src="~/lib/underscore/underscore-min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/lib/angular-resource/angular-resource.min.js"></script>
+    <script src="~/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="~/lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+    <!--  application Dependencies -->
+    <script src="~/js/models/login.model.js"></script>
+    <script src="~/js/models/bcard.model.js"></script>
+    <script src="~/js/models/register.model.js"></script>
+    <script src="~/js/models/user.model.js"></script>
+
+    <script src="~/js/views/views.js"></script>
+    <script src="~/js/factories/authenticationinterceptor.js"></script>
+    <script src="~/js/factories/factories.js"></script>
+
+    <script src="~/js/views/friends/friends.config.js"></script>
+    <script src="~/js/views/friends/friends.controller.js"></script>
+    <script src="~/js/views/friends/friends.js"></script>
+
+    <script src="~/js/views/blackjack/blackjack.controller.js"></script>
+    <script src="~/js/views/blackjack/blackjack.game.js"></script>
+    <script src="~/js/views/blackjack/blackjack.config.js"></script>
+    <script src="~/js/views/blackjack/blackjack.js"></script>
+
+    <script src="~/js/views/slots/slots.controller.js"></script>
+    <script src="~/js/views/slots/slots.config.js"></script>
+    <script src="~/js/views/slots/slots.js"></script>
+
+    <script src="~/js/views/roulette/roulette.controller.js"></script>
+    <script src="~/js/views/roulette/roulette.game.js"></script>
+    <script src="~/js/views/roulette/roulette.config.js"></script>
+    <script src="~/js/views/roulette/roulette.js"></script>
+
+    <script src="~/js/views/leaderboard/leaderboard.controller.js"></script>
+    <script src="~/js/views/leaderboard/leaderboard.config.js"></script>
+    <script src="~/js/views/leaderboard/leaderboard.js"></script>
+
+    <script src="~/js/views/login/login.controller.js"></script>
+    <script src="~/js/views/login/login.config.js"></script>
+    <script src="~/js/views/login/login.js"></script>
+
+
+
+    <script src="~/js/views/home/home.controller.js"></script>
+    <script src="~/js/views/home/home.config.js"></script>
+    <script src="~/js/views/home/home.js"></script>
+
+    <script src="~/js/views/register/register.controller.js"></script>
+    <script src="~/js/views/register/register.config.js"></script>
+    <script src="~/js/views/register/register.js"></script>
+
+    <script src="~/js/views/about/about.controller.js"></script>
+    <script src="~/js/views/about/about.config.js"></script>
+    <script src="~/js/views/about/about.js"></script>
+
+    <script src="~/js/views/contact/contact.controller.js"></script>
+    <script src="~/js/views/contact/contact.config.js"></script>
+    <script src="~/js/views/contact/contact.js"></script>
+
+    <script src="~/js/views/topup/topup.controller.js"></script>
+    <script src="~/js/views/topup/topup.config.js"></script>
+    <script src="~/js/views/topup/topup.js"></script>
+
+    <script src="~/js/views/settings/settings.controller.js"></script>
+    <script src="~/js/views/settings/settings.config.js"></script>
+    <script src="~/js/views/settings/settings.js"></script>
+
+    <script src="~/js/services/player.service.js"></script>
+    <script src="~/js/services/settings.service.js"></script>
+    <script src="~/js/services/register.service.js"></script>
+    <script src="~/js/services/login.service.js"></script>
+    <script src="~/js/services/user.service.js"></script>
+    <script src="~/js/services/service.js"></script>
+
+    <script src="~/js/app.controller.js"></script>
+    <script src="~/js/app.config.js"></script>
+    <script src="~/js/app.js"></script>
+
+</body>
+</html>

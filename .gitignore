@@ -1,0 +1,19 @@
+# Third Party Files
+node_modules
+**/wwwroot/lib
+bower_components
+/Casino/packages
+
+# User specific Files
+.vs
+.vscode
+*.user
+
+# Build Artifact Files
+bin
+obj
+
+*.js
+*.lock.json
+*.js.map
+

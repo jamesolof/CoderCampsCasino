@@ -1,0 +1,25 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.6.2",
+    "angular-ui-router": "0.4.2",
+    "angular-resource": "1.6.2",
+    "angular-bootstrap": "^2.5.0",
+    "bootstrap": "3.3.6",
+    "jquery": "2.2.0",
+    "jquery-validation": "1.14.0",
+    "jquery-validation-unobtrusive": "3.2.6",
+    "underscore": "^1.8.3",
+    "EaselJS": "easeljs#^0.8.2",
+    "es6-promise": "^4.0.5"
+  }
+}

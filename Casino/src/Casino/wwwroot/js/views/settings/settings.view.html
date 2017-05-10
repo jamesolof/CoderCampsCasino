@@ -1,0 +1,44 @@
+﻿<h3>Settings Page</h3>
+
+<h3><em>Nav Bar</em></h3>
+
+<div class="col-lg-6 col-lg-offset-3">
+    <div class="col-lg-3">
+        <button ng-click="vm.colorPicker(5)"> Default </button>
+    </div>
+    <div id="unlockbuttons" class="col-lg-8" ng-if="!vm.userTokens(5000)">
+        <p> <em>Unlock more at <span id="moneyMoney">5,000<span class="glyphicon glyphicon-copyright-mark"></span></span></em></p>
+    </div>
+
+    <div class="col-lg-9" ng-if="vm.userTokens(5000)">
+        <button ng-click="vm.colorPicker(1)"> Red </button>
+        <button ng-click="vm.colorPicker(2)"> Blue </button>
+        <button ng-click="vm.colorPicker(3)"> Black </button>
+        <button ng-click="vm.colorPicker(4)"> Orange </button>
+    </div>
+
+</div>
+
+<br />
+<br />
+
+
+<h3>Background color</h3>
+<div>
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="col-lg-3">
+            <button ng-click="vm.colorPicker2(5)"> Default </button>
+        </div>
+        <div id="unlockbuttons" class="col-lg-8" ng-if="!vm.userTokens(10000)">
+            <em>Unlock more at <span id="moneyMoney">10,000<span class="glyphicon glyphicon-copyright-mark"></span></span></em>
+        </div>
+
+        <div class="col-lg-9" ng-if="vm.userTokens(10000)">
+            <button ng-click="vm.colorPicker2(1)"> Red </button>
+            <button ng-click="vm.colorPicker2(2)"> Blue </button>
+            <button ng-click="vm.colorPicker2(3)"> Black </button>
+            <button ng-click="vm.colorPicker2(4)"> Orange </button>
+        </div>
+
+    </div>
+</div>
